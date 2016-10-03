@@ -37,11 +37,58 @@ describe('Component: SearchBar', () => {
 		let comp = de.componentInstance;
 		let el = de.nativeElement;
 
-		let inpEl = el.querySelector('input#search');
+		let inpEl: HTMLInputElement = el.querySelector('input#search');
 		let inpLabel = el.querySelector('label[for="search"]');
 
 		expect(inpEl).toBeTruthy();
 		expect(inpLabel).toBeTruthy();
 		expect(inpLabel.textContent).not.toBe('');
+	}));
+
+	it('should have a clean searchModel.query and input field', async(() => {	// Sanity Test
+		let fixture = TestBed.createComponent(SearchBarComponent);
+		fixture.detectChanges();
+		let de = fixture.debugElement;
+		let comp = de.componentInstance;
+		let el = de.nativeElement;
+
+		let inpEl: HTMLInputElement = el.querySelector('input#search');
+
+		expect(comp.searchModel.query).toBeFalsy();	// Sanity test for clean initial query term.
+		expect(inpEl.value).toBe('');	// Sanity test for clean search field.
+	}));
+
+	it('should have a data-flow from model to search field', async(() => {
+		let fixture = TestBed.createComponent(SearchBarComponent);
+		fixture.detectChanges();
+		let de = fixture.debugElement;
+		let comp = de.componentInstance;
+		let el = de.nativeElement;
+
+		let inpEl: HTMLInputElement = el.querySelector('input#search');
+
+		comp.searchModel.query = 'Foobar';
+		fixture.detectChanges();
+
+		fixture.whenStable().then(() => {
+			expect(inpEl.value).toBe('Foobar');
+		});
+	}));
+
+	it('should have a data-flow from search field to model', async(() => {
+		let fixture = TestBed.createComponent(SearchBarComponent);
+		fixture.detectChanges();
+		let de = fixture.debugElement;
+		let comp = de.componentInstance;
+		let el = de.nativeElement;
+
+		let inpEl: HTMLInputElement = el.querySelector('input#search');
+		inpEl.value = 'Foobar';
+
+		let evt: Event = document.createEvent('Event');
+		evt.initEvent('input', true, false);
+		inpEl.dispatchEvent(evt);
+
+		expect(comp.searchModel.query).toBe('Foobar');
 	}));
 });
