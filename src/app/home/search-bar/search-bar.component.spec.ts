@@ -22,11 +22,11 @@ describe('Component: SearchBar', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should have a searchModel and submitted properties', () => {
+	it('should have a query and submitted properties', () => {
 		let fixture = TestBed.createComponent(SearchBarComponent);
 		let component = fixture.debugElement.componentInstance;
 
-		expect(component.searchModel).not.toBeUndefined();
+		expect(component.query).not.toBeUndefined();
 		expect(component.submitted).not.toBeUndefined();
 	});
 
@@ -45,7 +45,7 @@ describe('Component: SearchBar', () => {
 		expect(inpLabel.textContent).not.toBe('');
 	}));
 
-	it('should have a clean searchModel.query and input field', async(() => {	// Sanity Test
+	it('should have a query and input field', async(() => {	// Sanity Test
 		let fixture = TestBed.createComponent(SearchBarComponent);
 		fixture.detectChanges();
 		let de = fixture.debugElement;
@@ -54,7 +54,7 @@ describe('Component: SearchBar', () => {
 
 		let inpEl: HTMLInputElement = el.querySelector('input#search');
 
-		expect(comp.searchModel.query).toBeFalsy();	// Sanity test for clean initial query term.
+		expect(comp.query).toBeFalsy();	// Sanity test for clean initial query term.
 		expect(inpEl.value).toBe('');	// Sanity test for clean search field.
 	}));
 
@@ -67,7 +67,7 @@ describe('Component: SearchBar', () => {
 
 		let inpEl: HTMLInputElement = el.querySelector('input#search');
 
-		comp.searchModel.query = 'Foobar';
+		comp.query = 'Foobar';
 		fixture.detectChanges();
 
 		fixture.whenStable().then(() => {
@@ -89,6 +89,6 @@ describe('Component: SearchBar', () => {
 		evt.initEvent('input', true, false);
 		inpEl.dispatchEvent(evt);
 
-		expect(comp.searchModel.query).toBe('Foobar');
+		expect(comp.query).toBe('Foobar');
 	}));
 });

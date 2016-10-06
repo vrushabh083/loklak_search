@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule,JsonpModule } from '@angular/http';
 
 import { LoklakAppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { FeedModule } from './feed/feed.module';
 import { SearchService } from './shared/services';
 
 @NgModule({
@@ -15,9 +16,11 @@ import { SearchService } from './shared/services';
 	imports: [
 		BrowserModule,
 		HttpModule,
+		JsonpModule,
 
 		LoklakAppRoutingModule,
-		HomeModule
+		HomeModule,
+		FeedModule
 	],
 	providers: [
 		SearchService

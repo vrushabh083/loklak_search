@@ -1,0 +1,18 @@
+# Machine
+
+machine:
+  node:
+    version: 6
+
+# Dependencies
+
+dependencies:
+  override:
+    - npm install -g angular-cli
+    - npm install
+
+# Test Commands
+
+test:
+  override:
+    - ng test --watch=false
