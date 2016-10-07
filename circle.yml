@@ -15,4 +15,5 @@ dependencies:
 
 test:
   override:
+		- ng build
     - ng test --watch=false
